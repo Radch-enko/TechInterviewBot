@@ -11,7 +11,9 @@ public class MockInterviewSource : InterviewSource, KoinComponent {
     private val topicsRepository: InterviewTopicsRepository by inject()
     private val questionsRepository: InterviewQuestionsRepository by inject()
     override fun getTopics(): List<String> = topicsRepository.getTopics()
-    override fun getSubTopics(selectedTopics: List<String>): List<String> = topicsRepository.getSubTopics()
+    override fun getSubTopics(selectedTopics: List<String>): List<String> =
+        topicsRepository.getSubTopics(selectedTopics)
+
     override fun generateTechInterview(topics: List<String>, subTopics: List<String>): TechInterview {
         return TechInterview(
             questions = questionsRepository.getQuestions(topics, subTopics)
