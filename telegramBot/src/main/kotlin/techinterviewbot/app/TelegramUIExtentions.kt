@@ -2,9 +2,9 @@ package techinterviewbot.app
 
 import com.github.kotlintelegrambot.entities.KeyboardReplyMarkup
 import com.github.kotlintelegrambot.entities.keyboard.KeyboardButton
-import techinterviewbot.domain.QuestionRate
-import techinterviewbot.domain.TechInterviewEvent
-import techinterviewbot.domain.models.AnswerGrade
+import techinterviewbot.interview.api.host.QuestionRate
+import techinterviewbot.interview.api.host.TechInterviewEvent
+import techinterviewbot.interview.internal.domain.models.AnswerGrade
 import techinterviewbot.utilities.StringUtil
 import techinterviewbot.utilities.StringValues
 

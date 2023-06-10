@@ -21,9 +21,11 @@ dependencies {
     // Use JUnit Jupiter for testing.
     testImplementation("org.junit.jupiter:junit-jupiter:5.9.1")
     testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1")
-    testImplementation("org.jetbrains.kotlin:kotlin-test:1.8.0")
+//    testImplementation("org.jetbrains.kotlin:kotlin-test:1.8.0")
+    testImplementation("io.insert-koin:koin-test-junit5:3.4.0")
+    testImplementation("io.insert-koin:koin-test:3.4.0")
 
-    compileOnly("io.insert-koin:koin-core:3.4.2")
+    implementation("io.insert-koin:koin-core:3.4.2")
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1")
 }

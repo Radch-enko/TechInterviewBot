@@ -20,6 +20,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/buildSrc" />
+            <option value="$PROJECT_DIR$/dataSource" />
             <option value="$PROJECT_DIR$/interview" />
             <option value="$PROJECT_DIR$/telegramBot" />
             <option value="$PROJECT_DIR$/utilities" />

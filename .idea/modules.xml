@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dataSource/TechInterviewBot.dataSource.main.iml" filepath="$PROJECT_DIR$/.idea/modules/dataSource/TechInterviewBot.dataSource.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/interview/TechInterviewBot.interview.test.iml" filepath="$PROJECT_DIR$/.idea/modules/interview/TechInterviewBot.interview.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/telegramBot/TechInterviewBot.telegramBot.test.iml" filepath="$PROJECT_DIR$/.idea/modules/telegramBot/TechInterviewBot.telegramBot.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/utilities/TechInterviewBot.utilities.test.iml" filepath="$PROJECT_DIR$/.idea/modules/utilities/TechInterviewBot.utilities.test.iml" />

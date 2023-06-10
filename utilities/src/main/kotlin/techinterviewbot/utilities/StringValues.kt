@@ -31,4 +31,14 @@ public class StringValues {
         override val russian: String
             get() = "Итоговый отчет по кандидату:"
     }
+
+    public object WhichTopicsNeeded : StringLocalization {
+        override val russian: String
+            get() = "По каким темам вы хотите провести интервью?"
+    }
+
+    public object WhichSubTopicsNeeded : StringLocalization {
+        override val russian: String
+            get() = "Выберите темы, которые необходимо затронуть"
+    }
 }

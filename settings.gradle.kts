@@ -13,4 +13,4 @@ plugins {
 }
 
 rootProject.name = "TechInterviewBot"
-include("telegramBot", "interview", "utilities")
+include("telegramBot", "interview", "utilities", "dataSource")

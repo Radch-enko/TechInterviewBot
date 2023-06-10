@@ -1,6 +1,6 @@
-package techinterviewbot.domain
+package techinterviewbot.interview.api.host
 
-import techinterviewbot.domain.models.TechInterviewReport
+import techinterviewbot.interview.internal.domain.models.TechInterviewReport
 
 public sealed class TechInterviewEvent {
     public object Start : TechInterviewEvent()

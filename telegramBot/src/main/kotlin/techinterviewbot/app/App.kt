@@ -3,73 +3,13 @@
  */
 package techinterviewbot.app
 
-import com.github.kotlintelegrambot.bot
-import com.github.kotlintelegrambot.dispatch
-import com.github.kotlintelegrambot.dispatcher.command
-import com.github.kotlintelegrambot.dispatcher.message
-import com.github.kotlintelegrambot.entities.ChatId
-import com.github.kotlintelegrambot.extensions.filters.Filter
-import com.github.kotlintelegrambot.logging.LogLevel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import techinterviewbot.app.mock.MockTechInterview
-import techinterviewbot.domain.InterviewHost
-import techinterviewbot.domain.InterviewerHostImpl
-import techinterviewbot.domain.TechInterviewEvent
-import techinterviewbot.domain.TechInterviewEventListener
-import techinterviewbot.utilities.StringUtil
-import techinterviewbot.utilities.StringValues
-import techinterviewbot.utils.toGrade
+import org.koin.core.context.startKoin
+import techinterviewbot.interview.internal.domain.di.interviewDIModule
 
 fun main() {
-    val scope = CoroutineScope(Dispatchers.Unconfined)
-    val bot = bot {
-        token = System.getenv("TECH_INTERVIEW_BOT_TOKEN")
-        timeout = 30
-        logLevel = LogLevel.Network.Body
-        var host: InterviewHost? = null
-
-        dispatch {
-            command("start") {
-                host = InterviewerHostImpl(
-                    techInterview = MockTechInterview.generate(), // TODO(radchenko): Provide dataset from any source
-                    listener = object : TechInterviewEventListener {
-                        override fun onEvent(event: TechInterviewEvent) {
-                            when (event) {
-                                is TechInterviewEvent.Finish -> bot.sendMessage(
-                                    chatId = ChatId.fromId(update.message!!.chat.id),
-                                    text = prettyPrintReport(event)
-                                )
-
-                                TechInterviewEvent.Start -> bot.sendMessage(
-                                    chatId = ChatId.fromId(update.message!!.chat.id),
-                                    text = StringUtil.getString(StringValues.InterviewStarted)
-                                )
-                            }
-                        }
-                    }
-                )
-
-                scope.launch {
-                    host?.state?.collect { state ->
-                        bot.sendMessage(
-                            chatId = ChatId.fromId(update.message!!.chat.id),
-                            text = state.question.text,
-                            replyMarkup = createInterviewerKeyboard()
-                        )
-                    }
-                }
-
-                host?.start()
-            }
-            message(Filter.Text) {
-                message.text?.let {
-                    host?.rateAnswerGrade(it.toGrade())
-                    host?.nextQuestion()
-                }
-            }
-        }
+    startKoin {
+        modules(interviewDIModule)
     }
-    bot.startPolling()
+    val bot = TechInterviewBot()
+    bot.startPooling()
 }

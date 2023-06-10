@@ -1,4 +1,4 @@
-package techinterviewbot.domain.models
+package techinterviewbot.interview.internal.domain.models
 
 public sealed class AnswerGrade {
     public object GoodAnswer : AnswerGrade()

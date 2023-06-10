@@ -2,9 +2,20 @@ package techinterviewbot.domain
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-import techinterviewbot.domain.mock.InterviewGenerator
+import org.junit.jupiter.api.extension.RegisterExtension
+import org.koin.dsl.module
+import org.koin.test.KoinTest
+import org.koin.test.junit5.KoinTestExtension
+import techinterviewbot.interview.api.host.InterviewerHostImpl
+import techinterviewbot.interview.api.host.TechInterviewEvent
+import techinterviewbot.interview.api.host.TechInterviewEventListener
+import techinterviewbot.interview.api.source.MockInterviewSource
+import techinterviewbot.interview.internal.domain.InterviewQuestionsRepository
+import techinterviewbot.interview.internal.domain.InterviewTopicsRepository
+import techinterviewbot.interview.internal.domain.implementation.InterviewQuestionsRepositoryImpl
+import techinterviewbot.interview.internal.domain.implementation.InterviewTopicsRepositoryImpl
 
-class InterviewerHostImplTest {
+class InterviewerHostImplTest : KoinTest {
 
     private val emptyListener = object : TechInterviewEventListener {
         override fun onEvent(event: TechInterviewEvent) {
@@ -12,43 +23,55 @@ class InterviewerHostImplTest {
         }
     }
 
+    @JvmField
+    @RegisterExtension
+    val koinTestExtension = KoinTestExtension.create {
+        modules(
+            module {
+                factory<InterviewTopicsRepository> { InterviewTopicsRepositoryImpl() }
+                factory<InterviewQuestionsRepository> { InterviewQuestionsRepositoryImpl() }
+            })
+    }
+
     @Test
     fun `Check "start" emits first question`() {
-        val mockInterview = InterviewGenerator()
-        val interview = mockInterview.generate()
-        val interviewerHelper = InterviewerHostImpl(techInterview = interview, emptyListener)
+        val interviewerHelper = InterviewerHostImpl(source = MockInterviewSource(), listener = emptyListener)
 
-        interviewerHelper.start()
+        val topics = listOf("Computer science", "Android")
+        val subTopics = listOf("Algorithms", "Kotlin")
 
-        assertEquals(interview.questions.first(), interviewerHelper.state.value.question)
+        interviewerHelper.start(topics, subTopics)
+
+        assertEquals(interviewerHelper.techInterview.questions.first(), interviewerHelper.state.value.question)
     }
 
     @Test
     fun `Check "nextQuestion" switches to next question from list`() {
-        val mockInterview = InterviewGenerator()
-        val interview = mockInterview.generate()
-        val interviewerHelper = InterviewerHostImpl(techInterview = interview, emptyListener)
+        val interviewerHelper = InterviewerHostImpl(source = MockInterviewSource(), emptyListener)
 
-        interviewerHelper.start()
+        val topics = listOf("Computer science", "Android")
+        val subTopics = listOf("Algorithms", "Kotlin")
+
+        interviewerHelper.start(topics, subTopics)
         interviewerHelper.nextQuestion()
 
-        val expected = interview.questions[1]
+        val expected = interviewerHelper.techInterview.questions[1]
         val actual = interviewerHelper.state.value.question
         assertEquals(expected, actual)
     }
 
     @Test
     fun `Check "prevQuestion" switches to previous question from list`() {
-        val mockInterview = InterviewGenerator()
-        val interview = mockInterview.generate()
-        val interviewerHelper = InterviewerHostImpl(techInterview = interview, emptyListener)
+        val interviewerHelper = InterviewerHostImpl(source = MockInterviewSource(), emptyListener)
 
-        interviewerHelper.start()
+        val topics = listOf("Computer Science", "Android")
+        val subTopics = listOf("Algorithms", "Kotlin")
+        interviewerHelper.start(topics, subTopics)
 
         interviewerHelper.nextQuestion()
         interviewerHelper.prevQuestion()
 
-        val expected = interview.questions[0]
+        val expected = interviewerHelper.techInterview.questions[0]
         val actual = interviewerHelper.state.value.question
         assertEquals(expected, actual)
     }
@@ -56,20 +79,26 @@ class InterviewerHostImplTest {
     @Test
     fun `Check "nextQuestion" on the last question`() {
         var testResult = false
-        val mockInterview = InterviewGenerator()
-        val interview = mockInterview.generate()
-        val interviewerHelper = InterviewerHostImpl(techInterview = interview, object : TechInterviewEventListener {
-            override fun onEvent(event: TechInterviewEvent) {
-                when(event){
-                    TechInterviewEvent.Finish -> { testResult = true }
-                    TechInterviewEvent.Start -> {}
+        val source = MockInterviewSource()
+        val interviewerHelper =
+            InterviewerHostImpl(source = source, object : TechInterviewEventListener {
+                override fun onEvent(event: TechInterviewEvent) {
+                    when (event) {
+                        is TechInterviewEvent.Finish -> {
+                            testResult = true
+                        }
+
+                        TechInterviewEvent.Start -> {}
+                    }
                 }
-            }
-        })
+            })
 
-        interviewerHelper.start()
+        val selectedTopics = listOf("Computer Science", "Android")
+        val selectedSubTopics = listOf("Algorithms", "Kotlin")
 
-        interviewerHelper.navigateToQuestion(interview.questions.lastIndex)
+        interviewerHelper.start(selectedTopics, selectedSubTopics)
+
+        interviewerHelper.navigateToQuestion(interviewerHelper.techInterview.questions.lastIndex)
         interviewerHelper.nextQuestion()
 
         assertEquals(true, testResult)

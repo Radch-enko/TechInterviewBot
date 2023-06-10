@@ -1,6 +1,6 @@
-package techinterviewbot.utils
+package techinterviewbot.interview.api.utils
 
-import techinterviewbot.domain.models.AnswerGrade
+import techinterviewbot.interview.internal.domain.models.AnswerGrade
 import techinterviewbot.utilities.StringUtil
 import techinterviewbot.utilities.StringValues
 

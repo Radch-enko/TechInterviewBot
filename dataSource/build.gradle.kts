@@ -7,6 +7,6 @@ plugins {
 }
 dependencies {
     implementation(project(":utilities"))
-    implementation(project(":dataSource"))
+    testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
 }

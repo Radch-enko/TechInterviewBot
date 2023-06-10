@@ -1,4 +1,4 @@
-package techinterviewbot.domain.models
+package techinterviewbot.interview.internal.domain.models
 
 public data class TechInterview(
     val questions: List<Question>,
