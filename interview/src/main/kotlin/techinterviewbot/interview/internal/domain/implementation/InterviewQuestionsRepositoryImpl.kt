@@ -14,7 +14,7 @@ public class InterviewQuestionsRepositoryImpl : InterviewQuestionsRepository {
         Question(
             "Перечисли методы жизненного цикла Activity",
             "Android",
-            "Common"
+            "Android Components"
         ),
         Question(
             "Расскажи про протокол TCP/IP. Как он работает?",

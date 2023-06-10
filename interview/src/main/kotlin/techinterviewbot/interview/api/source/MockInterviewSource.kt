@@ -5,6 +5,7 @@ import org.koin.core.component.inject
 import techinterviewbot.interview.internal.domain.InterviewQuestionsRepository
 import techinterviewbot.interview.internal.domain.InterviewTopicsRepository
 import techinterviewbot.interview.internal.domain.models.TechInterview
+import techinterviewbot.interview.internal.domain.usecase.CreateTechInterviewUseCase
 
 public class MockInterviewSource : InterviewSource, KoinComponent {
 
@@ -15,8 +16,6 @@ public class MockInterviewSource : InterviewSource, KoinComponent {
         topicsRepository.getSubTopics(selectedTopics)
 
     override fun generateTechInterview(topics: List<String>, subTopics: List<String>): TechInterview {
-        return TechInterview(
-            questions = questionsRepository.getQuestions(topics, subTopics)
-        )
+        return CreateTechInterviewUseCase(questionsRepository.getQuestions(topics, subTopics))()
     }
 }

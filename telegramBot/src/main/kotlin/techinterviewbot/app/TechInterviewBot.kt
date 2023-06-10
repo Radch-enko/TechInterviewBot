@@ -61,8 +61,8 @@ class TechInterviewBot {
             var isAnswered = false
             dispatcher.pollAnswer {
                 if (!isAnswered) {
-                    onHostAnswer(allSubTopics.filterIndexed { index, _ ->
-                        pollAnswer.optionIds.contains(index)
+                    onHostAnswer(pollAnswer.optionIds.map { ids ->
+                        allSubTopics[ids]
                     })
                     isAnswered = true
                 }
@@ -105,8 +105,8 @@ class TechInterviewBot {
             var isAnswered = false
             dispatcher.pollAnswer {
                 if (!isAnswered) {
-                    onHostAnswer(allTopics.filterIndexed { index, _ ->
-                        pollAnswer.optionIds.contains(index)
+                    onHostAnswer(pollAnswer.optionIds.map { ids ->
+                        allTopics[ids]
                     })
                     isAnswered = true
                 }
