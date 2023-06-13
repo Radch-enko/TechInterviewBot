@@ -5,9 +5,9 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import org.koin.core.component.KoinComponent
-import techinterviewbot.interview.api.source.InterviewSource
+import techinterviewbot.data.source.InterviewSource
+import techinterviewbot.interview.internal.domain.converter.toDomain
 import techinterviewbot.interview.internal.domain.models.AnswerGrade
-import techinterviewbot.interview.internal.domain.models.Question
 import techinterviewbot.interview.internal.domain.models.TechInterview
 
 public class InterviewerHostImpl(
@@ -16,13 +16,14 @@ public class InterviewerHostImpl(
 ) : InterviewHost, KoinComponent {
 
     internal lateinit var techInterview: TechInterview
-    private val _interviewState = MutableStateFlow(State(index = -1, question = Question("", "", "")))
+    private val _interviewState: MutableStateFlow<State> = MutableStateFlow(State.Initial)
     public override val state: StateFlow<State> = _interviewState.asStateFlow()
 
     private var isInterviewStarted: Boolean = false
 
-    override fun start(topics: List<String>, subTopics: List<String>) {
-        techInterview = source.generateTechInterview(topics, subTopics)
+    override fun start(subTopics: List<String>, durationMode: DurationMode) {
+        techInterview = source.generateTechInterview(durationMode.countQuestionInSubTopic, subTopics).toDomain()
+        println("[TECH_INTERVIEW]: ${techInterview.questions}")
         isInterviewStarted = true
         listener.onEvent(TechInterviewEvent.Start)
         _interviewState.value = State(index = 0, question = techInterview.questions.first())

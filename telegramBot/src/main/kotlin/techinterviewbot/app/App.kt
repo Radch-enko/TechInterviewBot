@@ -3,13 +3,7 @@
  */
 package techinterviewbot.app
 
-import org.koin.core.context.startKoin
-import techinterviewbot.interview.internal.domain.di.interviewDIModule
-
 fun main() {
-    startKoin {
-        modules(interviewDIModule)
-    }
     val bot = TechInterviewBot()
     bot.startPooling()
 }

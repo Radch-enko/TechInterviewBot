@@ -5,6 +5,7 @@ import com.github.kotlintelegrambot.entities.keyboard.KeyboardButton
 import techinterviewbot.interview.api.host.QuestionRate
 import techinterviewbot.interview.api.host.TechInterviewEvent
 import techinterviewbot.interview.internal.domain.models.AnswerGrade
+import techinterviewbot.interview.internal.domain.models.Question
 import techinterviewbot.utilities.StringUtil
 import techinterviewbot.utilities.StringValues
 
@@ -42,4 +43,12 @@ fun prettyPrintReport(event: TechInterviewEvent.Finish): String {
         .plus("---------------------------\n")
         .plus(answerStatistic.joinToString(""))
         .plus("---------------------------")
+}
+
+fun prettyPrintQuestion(question: Question): String {
+    return "${StringValues.Question.get()}: ${question.text}\n" +
+            "${StringValues.Topic.get()}: \n${question.topic}\n" +
+            "${StringValues.SubTopic.get()}: \n${question.subTopic}\n" +
+            "${StringValues.Category.get()}: ${question.category}\n" +
+            "${StringValues.Question.get()}: <span class=\"tg-spoiler\">${question.answer}</span>"
 }

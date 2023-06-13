@@ -2,18 +2,12 @@ package techinterviewbot.domain
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.RegisterExtension
-import org.koin.dsl.module
 import org.koin.test.KoinTest
-import org.koin.test.junit5.KoinTestExtension
+import techinterviewbot.data.source.mock.MockInterviewSource
+import techinterviewbot.interview.api.host.DurationMode
 import techinterviewbot.interview.api.host.InterviewerHostImpl
 import techinterviewbot.interview.api.host.TechInterviewEvent
 import techinterviewbot.interview.api.host.TechInterviewEventListener
-import techinterviewbot.interview.api.source.MockInterviewSource
-import techinterviewbot.interview.internal.domain.InterviewQuestionsRepository
-import techinterviewbot.interview.internal.domain.InterviewTopicsRepository
-import techinterviewbot.interview.internal.domain.implementation.InterviewQuestionsRepositoryImpl
-import techinterviewbot.interview.internal.domain.implementation.InterviewTopicsRepositoryImpl
 
 class InterviewerHostImplTest : KoinTest {
 
@@ -23,24 +17,13 @@ class InterviewerHostImplTest : KoinTest {
         }
     }
 
-    @JvmField
-    @RegisterExtension
-    val koinTestExtension = KoinTestExtension.create {
-        modules(
-            module {
-                factory<InterviewTopicsRepository> { InterviewTopicsRepositoryImpl() }
-                factory<InterviewQuestionsRepository> { InterviewQuestionsRepositoryImpl() }
-            })
-    }
-
     @Test
     fun `Check "start" emits first question`() {
         val interviewerHelper = InterviewerHostImpl(source = MockInterviewSource(), listener = emptyListener)
 
-        val topics = listOf("Computer science", "Android")
-        val subTopics = listOf("Algorithms", "Kotlin")
+        val subTopics = listOf("SubTopic1", "SubTopic2")
 
-        interviewerHelper.start(topics, subTopics)
+        interviewerHelper.start(subTopics, durationMode = DurationMode.SHORT)
 
         assertEquals(interviewerHelper.techInterview.questions.first(), interviewerHelper.state.value.question)
     }
@@ -49,10 +32,9 @@ class InterviewerHostImplTest : KoinTest {
     fun `Check "nextQuestion" switches to next question from list`() {
         val interviewerHelper = InterviewerHostImpl(source = MockInterviewSource(), emptyListener)
 
-        val topics = listOf("Computer science", "Android")
-        val subTopics = listOf("Algorithms", "Kotlin")
+        val subTopics = listOf("SubTopic1", "SubTopic2")
 
-        interviewerHelper.start(topics, subTopics)
+        interviewerHelper.start(subTopics, durationMode = DurationMode.SHORT)
         interviewerHelper.nextQuestion()
 
         val expected = interviewerHelper.techInterview.questions[1]
@@ -64,9 +46,9 @@ class InterviewerHostImplTest : KoinTest {
     fun `Check "prevQuestion" switches to previous question from list`() {
         val interviewerHelper = InterviewerHostImpl(source = MockInterviewSource(), emptyListener)
 
-        val topics = listOf("Computer Science", "Android")
-        val subTopics = listOf("Algorithms", "Kotlin")
-        interviewerHelper.start(topics, subTopics)
+        val subTopics = listOf("SubTopic1", "SubTopic2")
+
+        interviewerHelper.start(subTopics, durationMode = DurationMode.SHORT)
 
         interviewerHelper.nextQuestion()
         interviewerHelper.prevQuestion()
@@ -93,10 +75,9 @@ class InterviewerHostImplTest : KoinTest {
                 }
             })
 
-        val selectedTopics = listOf("Computer Science", "Android")
-        val selectedSubTopics = listOf("Algorithms", "Kotlin")
+        val subTopics = listOf("SubTopic1", "SubTopic2")
 
-        interviewerHelper.start(selectedTopics, selectedSubTopics)
+        interviewerHelper.start(subTopics, durationMode = DurationMode.SHORT)
 
         interviewerHelper.navigateToQuestion(interviewerHelper.techInterview.questions.lastIndex)
         interviewerHelper.nextQuestion()

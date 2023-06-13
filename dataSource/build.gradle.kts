@@ -9,4 +9,6 @@ dependencies {
     implementation(project(":utilities"))
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
+    implementation("com.github.seratch:notion-sdk-jvm-core:1.8.0")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
 }
