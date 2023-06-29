@@ -17,7 +17,7 @@ class ExcelDataSourceTest {
     @Test
     fun getTopics() {
         val excelDataSource = ExcelDataSource(File(EXCEL_FILE_PATH).inputStream())
-        val expect = listOf<TopicDTO>(TopicDTO(1, "Computer Science"), TopicDTO(2, "Test ( don't select)!"))
+        val expect = listOf<TopicDTO>(TopicDTO(1, "Computer Science"))
 
         val actual: List<TopicDTO> = excelDataSource.getTopics()
         assertEquals(expect, actual)
@@ -27,15 +27,15 @@ class ExcelDataSourceTest {
     fun getSubTopics() {
         val excelDataSource = ExcelDataSource(File(EXCEL_FILE_PATH).inputStream())
         val expect = listOf<SubtopicDTO>(
-            SubtopicDTO(id = 1, "Структура и интерпретация компьютерных программ."),
-            SubtopicDTO(id = 2, "Архитектура компьютера"),
-            SubtopicDTO(id = 3, "Алгоритмы и структуры данных"),
-            SubtopicDTO(id = 4, "Математика для CS"),
-            SubtopicDTO(id = 5, "Операционные системы"),
-            SubtopicDTO(id = 6, "Компьютерные сети"),
-            SubtopicDTO(id = 7, "Языки и компиляторы"),
-            SubtopicDTO(id = 8, "Распределенные системы"),
-            SubtopicDTO(id = 9, "Базы данных"),
+            SubtopicDTO(id = 1, "Структура и интерпретация компьютерных программ.", 1),
+            SubtopicDTO(id = 2, "Архитектура компьютера", 1),
+            SubtopicDTO(id = 3, "Алгоритмы и структуры данных", 1),
+            SubtopicDTO(id = 4, "Математика для CS", 1),
+            SubtopicDTO(id = 5, "Операционные системы", 1),
+            SubtopicDTO(id = 6, "Компьютерные сети", 1),
+            SubtopicDTO(id = 7, "Языки и компиляторы", 1),
+            SubtopicDTO(id = 8, "Распределенные системы", 1),
+            SubtopicDTO(id = 9, "Базы данных", 1),
         )
 
         val actual: List<SubtopicDTO> = excelDataSource.getSubTopics()
@@ -45,7 +45,7 @@ class ExcelDataSourceTest {
     @Test
     fun getSubTopicById() {
         val excelDataSource = ExcelDataSource(File(EXCEL_FILE_PATH).inputStream())
-        val expect = SubtopicDTO(id = 3, "Алгоритмы и структуры данных")
+        val expect = SubtopicDTO(id = 3, "Алгоритмы и структуры данных", 1)
         val actual: SubtopicDTO? = excelDataSource.getSubTopic(3)
         assertEquals(expect, actual)
     }
@@ -57,9 +57,9 @@ class ExcelDataSourceTest {
         val techInterview = excelDataSource.generateTechInterview(
             countQuestionInSubtopic = 5,
             selectedSubTopics = listOf(
-                SubtopicDTO(id = 1, "Структура и интерпретация компьютерных программ."),
-                SubtopicDTO(id = 2, "Архитектура компьютера"),
-                SubtopicDTO(id = 3, "Алгоритмы и структуры данных"),
+                SubtopicDTO(id = 1, "Структура и интерпретация компьютерных программ.", 1),
+                SubtopicDTO(id = 2, "Архитектура компьютера", 1),
+                SubtopicDTO(id = 3, "Алгоритмы и структуры данных", 1),
             )
         )
         println(techInterview.questions.toString())

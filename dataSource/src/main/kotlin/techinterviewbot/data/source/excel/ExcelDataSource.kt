@@ -80,8 +80,12 @@ public class ExcelDataSource(private val inputStream: InputStream) : InterviewSo
             }
 
         val randomQuestions = mutableListOf<QuestionDTO>()
-        repeat(selectedSubTopics.size * countQuestionInSubtopic) {
-            randomQuestions.add(questions.random())
+
+        val groupedQuestions = questions.groupBy { it.subTopic }
+        groupedQuestions.forEach { entry ->
+            repeat(countQuestionInSubtopic) {
+                randomQuestions.add(entry.value.random())
+            }
         }
 
         return TechInterviewDTO(
