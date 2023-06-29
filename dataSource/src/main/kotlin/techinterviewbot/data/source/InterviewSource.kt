@@ -1,12 +1,14 @@
 package techinterviewbot.data.source
 
+import techinterviewbot.data.dto.SubtopicDTO
 import techinterviewbot.data.dto.TechInterviewDTO
+import techinterviewbot.data.dto.TopicDTO
 
 public interface InterviewSource {
-    public fun getTopics(): List<String>
-    public fun getSubTopics(selectedTopics: List<String>): List<String>
+    public fun getTopics(): List<TopicDTO>
+    public fun getSubTopics(): List<SubtopicDTO>
     public fun generateTechInterview(
         countQuestionInSubtopic: Int,
-        selectedSubTopics: List<String>
+        selectedSubTopics: List<SubtopicDTO>
     ): TechInterviewDTO
 }

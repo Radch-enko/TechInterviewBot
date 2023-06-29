@@ -5,5 +5,5 @@ package techinterviewbot.app
 
 fun main() {
     val bot = TechInterviewBot()
-    bot.startPooling()
+    bot.startPolling()
 }

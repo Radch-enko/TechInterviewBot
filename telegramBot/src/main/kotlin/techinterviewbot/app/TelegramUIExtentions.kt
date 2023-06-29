@@ -47,8 +47,8 @@ fun prettyPrintReport(event: TechInterviewEvent.Finish): String {
 
 fun prettyPrintQuestion(question: Question): String {
     return "${StringValues.Question.get()}: ${question.text}\n" +
-            "${StringValues.Topic.get()}: \n${question.topic}\n" +
-            "${StringValues.SubTopic.get()}: \n${question.subTopic}\n" +
+            "${StringValues.Topic.get()}: <b>\n${question.topic.name}</b>\n" +
+            "${StringValues.SubTopic.get()}: <b>\n${question.subTopic.name}</b>\n" +
             "${StringValues.Category.get()}: ${question.category}\n" +
             "${StringValues.Question.get()}: <span class=\"tg-spoiler\">${question.answer}</span>"
 }

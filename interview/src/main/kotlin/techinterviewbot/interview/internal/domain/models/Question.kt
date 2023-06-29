@@ -10,8 +10,8 @@ package techinterviewbot.interview.internal.domain.models
  */
 public data class Question(
     val text: String,
-    val topic: String,
-    val subTopic: String,
+    val topic: TopicDomain,
+    val subTopic: SubtopicDomain,
     val answer: String?,
     val category: String? = null,
 ) {
