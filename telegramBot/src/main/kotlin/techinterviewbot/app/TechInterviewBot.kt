@@ -35,6 +35,8 @@ import techinterviewbot.utilities.StringValues
 class TechInterviewBot {
 
     companion object {
+        // TODO(radchenko): implement relative path here
+        // NOTE(radchenko): put full path here, example: /Users/username/../src/main/resources/source.xlsx
         const val EXCEL_FILE_PATH = "YOUR_PATH"
     }
 
