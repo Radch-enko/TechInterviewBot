@@ -90,7 +90,7 @@ The bot has the following functionality:
 ### Prerequisites
 
 1. Create a Telegram Bot followwing instruction from [official guide](#https://core.telegram.org/bots#how-do-i-create-a-bot)
-2. Source file with prepared questions [source.xls](interview/src/main/resources/source.xlsx)
+2. Source file with prepared questions [source.xls](telegramBot/src/main/resources/source.xlsx)
 
 ### Installation
 
