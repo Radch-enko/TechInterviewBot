@@ -11,7 +11,6 @@ import com.github.kotlintelegrambot.entities.ParseMode
 import com.github.kotlintelegrambot.entities.polls.PollAnswer
 import com.github.kotlintelegrambot.extensions.filters.Filter
 import com.github.kotlintelegrambot.logging.LogLevel
-import java.io.File
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -32,18 +31,18 @@ import techinterviewbot.interview.internal.domain.models.SubtopicDomain
 import techinterviewbot.interview.internal.domain.models.TopicDomain
 import techinterviewbot.utilities.StringValues
 
+
 class TechInterviewBot {
 
     companion object {
-        // TODO(radchenko): implement relative path here
-        // NOTE(radchenko): put full path here, example: /Users/username/../src/main/resources/source.xlsx
-        const val EXCEL_FILE_PATH = "YOUR_PATH"
+        const val EXCEL_FILE_PATH = "source.xlsx"
     }
 
     // Setup
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
+    private val sourceFile = Thread.currentThread().contextClassLoader.getResourceAsStream(EXCEL_FILE_PATH)
     private val interviewSource: InterviewSource =
-        ExcelDataSource(inputStream = File(EXCEL_FILE_PATH).inputStream())
+        ExcelDataSource(inputStream = sourceFile)
     private var host: InterviewHost =
         InterviewerHostImpl(source = interviewSource, object : TechInterviewEventListener {
             override fun onEvent(event: TechInterviewEvent) {
