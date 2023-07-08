@@ -29,7 +29,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/github_username/repo_name">
+  <a href="https://github.com/Radch-enko/TechInterviewBot">
     <img src="images/project_logo.png" alt="Logo" width="50%" >
   </a>
 
@@ -165,19 +165,19 @@ Project Link: [https://github.com/Radch-enko/TechInterviewBot](https://github.co
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-* [kotlin-telegram-bot](#https://github.com/kotlin-telegram-bot/kotlin-telegram-bot) - 🤖 A wrapper for the Telegram Bot API written in Kotlin
+* [kotlin-telegram-bot](https://github.com/kotlin-telegram-bot/kotlin-telegram-bot) - 🤖 A wrapper for the Telegram Bot API written in Kotlin
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/github_username/repo_name.svg?style=for-the-badge
+[contributors-shield]: https://img.shields.io/github/contributors/Radch-enko/TechInterviewBot.svg?style=for-the-badge
 [contributors-url]: https://github.com/Radch-enko/TechInterviewBot/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/github_username/repo_name.svg?style=for-the-badge
+[forks-shield]: https://img.shields.io/github/forks/Radch-enko/TechInterviewBot.svg?style=for-the-badge
 [forks-url]: https://github.com/Radch-enko/TechInterviewBot/network/members
-[stars-shield]: https://img.shields.io/github/stars/github_username/repo_name.svg?style=for-the-badge
+[stars-shield]: https://img.shields.io/github/stars/Radch-enko/TechInterviewBot.svg?style=for-the-badge
 [stars-url]: https://github.com/Radch-enko/TechInterviewBot/stargazers
-[issues-shield]: https://img.shields.io/github/issues/github_username/repo_name.svg?style=for-the-badge
+[issues-shield]: https://img.shields.io/github/issues/Radch-enko/TechInterviewBot.svg?style=for-the-badge
 [issues-url]: https://github.com/Radch-enko/TechInterviewBot/issues
-[license-shield]: https://img.shields.io/github/license/github_username/repo_name.svg?style=for-the-badge
+[license-shield]: https://img.shields.io/github/license/Radch-enko/TechInterviewBot.svg?style=for-the-badge
 [license-url]: https://github.com/Radch-enko/TechInterviewBot/blob/main/LICENSE
