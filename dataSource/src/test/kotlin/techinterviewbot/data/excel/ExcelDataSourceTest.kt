@@ -1,6 +1,5 @@
 package techinterviewbot.data.excel
 
-import java.io.File
 import kotlin.test.assertEquals
 import org.junit.jupiter.api.Test
 import techinterviewbot.data.dto.SubtopicDTO
@@ -11,12 +10,14 @@ class ExcelDataSourceTest {
 
     companion object {
         const val EXCEL_FILE_PATH =
-            "/Users/stanislav.radchenko/Desktop/PetProjects/TechInterviewBot/telegramBot/src/main/resources/source.xlsx"
+            "source.xlsx"
     }
+
+    private val sourceFile = Thread.currentThread().contextClassLoader.getResourceAsStream(EXCEL_FILE_PATH)
 
     @Test
     fun getTopics() {
-        val excelDataSource = ExcelDataSource(File(EXCEL_FILE_PATH).inputStream())
+        val excelDataSource = ExcelDataSource(sourceFile)
         val expect = listOf<TopicDTO>(TopicDTO(1, "Computer Science"))
 
         val actual: List<TopicDTO> = excelDataSource.getTopics()
@@ -25,7 +26,7 @@ class ExcelDataSourceTest {
 
     @Test
     fun getSubTopics() {
-        val excelDataSource = ExcelDataSource(File(EXCEL_FILE_PATH).inputStream())
+        val excelDataSource = ExcelDataSource(sourceFile)
         val expect = listOf<SubtopicDTO>(
             SubtopicDTO(id = 1, "Структура и интерпретация компьютерных программ.", 1),
             SubtopicDTO(id = 2, "Архитектура компьютера", 1),
@@ -44,7 +45,7 @@ class ExcelDataSourceTest {
 
     @Test
     fun getSubTopicById() {
-        val excelDataSource = ExcelDataSource(File(EXCEL_FILE_PATH).inputStream())
+        val excelDataSource = ExcelDataSource(sourceFile)
         val expect = SubtopicDTO(id = 3, "Алгоритмы и структуры данных", 1)
         val actual: SubtopicDTO? = excelDataSource.getSubTopic(3)
         assertEquals(expect, actual)
@@ -53,7 +54,7 @@ class ExcelDataSourceTest {
     @Test
     fun getGeneratedTechInterview() {
         val expectedSize = 15
-        val excelDataSource = ExcelDataSource(File(EXCEL_FILE_PATH).inputStream())
+        val excelDataSource = ExcelDataSource(sourceFile)
         val techInterview = excelDataSource.generateTechInterview(
             countQuestionInSubtopic = 5,
             selectedSubTopics = listOf(
